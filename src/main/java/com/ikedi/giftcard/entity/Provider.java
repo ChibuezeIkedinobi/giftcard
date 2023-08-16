@@ -35,4 +35,9 @@ public class Provider {
 
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    public Provider(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

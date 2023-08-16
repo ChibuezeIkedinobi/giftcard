@@ -41,4 +41,11 @@ public class Currency {
 
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    public Currency(Long id, String country, String currency_name, String code) {
+        this.id = id;
+        this.country = country;
+        this.currency_name = currency_name;
+        this.code = code;
+    }
 }

@@ -33,4 +33,9 @@ public class Wallet {
 
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    public Wallet(Long id, Long balance) {
+        this.id = id;
+        this.balance = balance;
+    }
 }

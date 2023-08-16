@@ -41,4 +41,11 @@ public class User {
 
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    public User(Long id, String firstName, String lastName, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 }

@@ -42,4 +42,12 @@ public class Products {
 
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    public Products(Long id, String name, long discount, long fee, boolean status) {
+        this.id = id;
+        this.name = name;
+        this.discount = discount;
+        this.fee = fee;
+        this.status = status;
+    }
 }
