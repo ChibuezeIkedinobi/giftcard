@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:12345/giftcard_service  # connection link to database
+    url: jdbc:mysql://localhost:23456/giftcard_service  # connection link to database
     username: giftcard_service_user
     password: 2017ylda0l3R
     driver-class-name: com.mysql.jdbc.Driver
