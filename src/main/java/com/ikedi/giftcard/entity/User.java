@@ -1,13 +1,14 @@
 package com.ikedi.giftcard.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ResultCheckStyle;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
 
 import java.time.LocalDateTime;
 
@@ -42,10 +43,16 @@ public class User {
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    public User(Long id, String firstName, String lastName, String email) {
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "wallet", referencedColumnName = "wallet_id")
+    private Wallet wallet;
+
+    public User(Long id, String firstName, String lastName, String email, Wallet wallet) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.wallet = wallet;
     }
 }

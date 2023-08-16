@@ -42,10 +42,18 @@ public class Currency {
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    public Currency(Long id, String country, String currency_name, String code) {
+    @OneToOne(mappedBy = "currency")
+    private Products products;
+
+    @OneToOne(mappedBy = "currency")
+    private Provider provider;
+
+    public Currency(Long id, String country, String currency_name, String code, Products products, Provider provider) {
         this.id = id;
         this.country = country;
         this.currency_name = currency_name;
         this.code = code;
+        this.products = products;
+        this.provider = provider;
     }
 }

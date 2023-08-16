@@ -1,5 +1,6 @@
 package com.ikedi.giftcard.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "products") // name of the table
@@ -43,11 +45,28 @@ public class Products {
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    public Products(Long id, String name, long discount, long fee, boolean status) {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "products", referencedColumnName = "product_id")
+    private Currency currency;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "provider_product",
+            joinColumns = @JoinColumn(name = "product", referencedColumnName = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "provider", referencedColumnName = "provider_id")
+    )
+    private Set<Provider> providers;
+
+    public Products(Long id, String name, long discount, long fee, boolean status, Currency currency, Set<Provider> providers) {
         this.id = id;
         this.name = name;
         this.discount = discount;
         this.fee = fee;
         this.status = status;
+        this.currency = currency;
+        this.providers = providers;
     }
 }
+
+
