@@ -33,4 +33,13 @@ public class Wallet {
 
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    @OneToOne(mappedBy = "wallet")
+    private User user;
+
+    public Wallet(Long id, Long balance, User user) {
+        this.id = id;
+        this.balance = balance;
+        this.user = user;
+    }
 }
