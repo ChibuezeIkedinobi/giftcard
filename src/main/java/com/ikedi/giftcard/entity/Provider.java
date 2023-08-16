@@ -38,6 +38,7 @@ public class Provider {
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "provider", referencedColumnName = "provider_id")
     private Currency currency;

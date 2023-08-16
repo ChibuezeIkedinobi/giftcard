@@ -45,6 +45,7 @@ public class Products {
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "products", referencedColumnName = "product_id")
     private Currency currency;
