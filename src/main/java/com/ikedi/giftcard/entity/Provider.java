@@ -25,7 +25,7 @@ public class Provider {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Enter provider name")
+    @NotBlank(message = "Enter provider name ")
     @Column(nullable = false)
     private String name;
 
