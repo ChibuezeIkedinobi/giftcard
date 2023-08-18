@@ -2,13 +2,12 @@ package com.ikedi.giftcard.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ResultCheckStyle;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -27,36 +26,23 @@ public class Provider {
     private Long id;
 
     @NotBlank
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false, updatable = false, name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column(nullable = false, updatable = false, name = "updated_at")
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "provider", referencedColumnName = "provider_id")
-    private Currency currency;
-
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "provider_product",
-            joinColumns = @JoinColumn(name = "provider", referencedColumnName = "provider_id"),
-            inverseJoinColumns = @JoinColumn(name = "product", referencedColumnName = "product_id")
-    )
-    private Set<Products> products;
-
-    public Provider(Long id, String name, Currency currency, Set<Products> products) {
+    public Provider(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.currency = currency;
-        this.products = products;
     }
 }
 

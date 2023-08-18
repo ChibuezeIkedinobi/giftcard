@@ -1,13 +1,14 @@
 package com.ikedi.giftcard.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ResultCheckStyle;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
 
 import java.time.LocalDateTime;
 
@@ -24,36 +25,32 @@ public class Currency {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Enter a country")
+    @Column(nullable = false)
     private String country;
 
-    @NotBlank
+    @NotBlank(message = "Enter currency name")
     private String currency_name;
 
-    @NotBlank
+    @NotBlank(message = "Enter currency code")
+    @Column(nullable = false, unique = true)
     private String code;
 
     @Column(nullable = false, updatable = false, name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column(nullable = false, updatable = false, name = "updated_at")
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @Column(nullable = false, updatable = false, name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @OneToOne(mappedBy = "currency")
-    private Products products;
-
-    @OneToOne(mappedBy = "currency")
-    private Provider provider;
-
-    public Currency(Long id, String country, String currency_name, String code, Products products, Provider provider) {
+    public Currency(Long id, String country, String currency_name, String code) {
         this.id = id;
         this.country = country;
         this.currency_name = currency_name;
         this.code = code;
-        this.products = products;
-        this.provider = provider;
     }
 }
